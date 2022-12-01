@@ -5,8 +5,8 @@ import PackageDescription
 let package = Package(
     name: "ASOSuiteShared",
     platforms: [
-        .macOS(.v11),
-        .iOS(.v13)
+        .macOS(.v13),
+        .iOS(.v16)
     ],
     products: [
         .library(
