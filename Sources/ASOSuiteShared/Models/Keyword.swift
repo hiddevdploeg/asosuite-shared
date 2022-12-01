@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Keyword: Codable, Equatable, Hashable {
+public struct Keyword: Codable, Equatable {
     
     public var keyword: String
     public var popularity: Int?
