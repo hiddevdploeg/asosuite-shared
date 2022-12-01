@@ -7,15 +7,15 @@
 
 import Foundation
 
-public struct Keyword: Codable {
+public struct Keyword: Codable, Equatable, Hashable {
+    
+    public var keyword: String
+    public var popularity: Int?
     
     public init(keyword: String, popularity: Int? = nil) {
         self.keyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: "")
         self.popularity = popularity
     }
-    
-    public var keyword: String
-    public var popularity: Int?
     
     public static func hasAllStatistics(keywords: [Keyword]) -> Bool {
         for keyword in keywords {
@@ -24,5 +24,9 @@ public struct Keyword: Codable {
             }
         }
         return true
+    }
+    
+    public static func == (lhs: Keyword, rhs: Keyword) -> Bool {
+        return lhs.keyword == rhs.keyword
     }
 }

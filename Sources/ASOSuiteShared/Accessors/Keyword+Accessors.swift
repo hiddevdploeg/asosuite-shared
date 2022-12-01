@@ -10,6 +10,9 @@ import Foundation
 extension Keyword {
     
     public static func updateStatistics(keywords: [Keyword], region: String) async throws -> [Keyword] {
+        if keywords.count == 0 {
+            return keywords
+        }
         var url = URL.API(path: "/keywords/statistics")
         let commaSeperatedKeywords = keywords.map({$0.keyword}).joined(separator: ",")
         url.append(queryItems: [
