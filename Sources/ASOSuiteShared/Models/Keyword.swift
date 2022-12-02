@@ -16,4 +16,9 @@ public struct Keyword: Codable, Hashable {
         self.keyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: "")
         self.popularity = popularity
     }
+    
+    public static func filterIllegalCharacters(_ keyword: String) -> String {
+        // TODO: We might need more aggressive filtering. We also need server-side verification.
+        return keyword.filter { $0.isLetter || $0.isNumber  || $0 == Character(" ")}
+    }
 }
