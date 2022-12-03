@@ -7,10 +7,17 @@
 
 import Foundation
 
-public struct Keyword: Codable, Hashable, Equatable {
+public struct Keyword: Codable, Hashable, Equatable, Identifiable {
     
+    public var id: String {
+        return keyword
+    }
     public var keyword: String
     public var popularity: Int?
+    
+    public static func == (lhs: Keyword, rhs: Keyword) -> Bool {
+        return lhs.keyword.localizedCaseInsensitiveCompare(rhs.keyword) == .orderedSame
+    }
     
     public init(keyword: String, popularity: Int? = nil) {
         self.keyword = keyword.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: "")
@@ -22,12 +29,7 @@ public struct Keyword: Codable, Hashable, Equatable {
         return keyword.filter { $0.isLetter || $0.isNumber  || $0 == Character(" ")}
     }
     
-    public func isSameAs(_ otherKeyword: Keyword) -> Bool {
-        // TODO: We should use Equatable here but that makes SwiftUI break its updating mechanism.
-        return keyword.localizedCaseInsensitiveCompare(otherKeyword.keyword) == .orderedSame
-    }
-    
     public func existsIn(_ keywords: [Keyword]) -> Bool {
-        return keywords.contains { $0.isSameAs(self) }
+        return keywords.contains { $0 == self }
     }
 }
